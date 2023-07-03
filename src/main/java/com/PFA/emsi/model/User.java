@@ -8,8 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "User")
 public class User {
-
-    // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,13 +31,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Trace> traces;
 
-    @OneToOne(mappedBy = "itManager")
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
     private Organization organization;
-
 
     @OneToMany(mappedBy = "processManager")
     private List<Process> processes;
-
 
     @ManyToMany(mappedBy = "auditors", cascade = CascadeType.ALL)
     private List<Audit> audits;
@@ -65,7 +62,6 @@ public class User {
         this.audits = audits;
         this.actions = actions;
     }
-
     public Long getId() {
         return id;
     }

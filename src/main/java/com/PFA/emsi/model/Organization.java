@@ -3,7 +3,6 @@ package com.PFA.emsi.model;
 import jakarta.persistence.*;
 
 import java.util.List;
-
 @Entity
 @Table(name = "Organization")
 public class Organization {
@@ -23,7 +22,7 @@ public class Organization {
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
     private List<Site> sites;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "it_manager_id")
     private User itManager;
 
@@ -88,5 +87,5 @@ public class Organization {
     }
 
 
-    // Constructors, getters, and setters
+// Constructors, getters, and setters
 }
