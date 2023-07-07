@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
 @Entity
 @Table(name = "Site")
 public class Site {
@@ -21,11 +22,12 @@ public class Site {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "organization_id", nullable = false)
     private Organization organization;
 
-    @OneToMany(mappedBy = "site")
+    @OneToMany
     private List<Process> processes;
+
+    // Constructors, getters, and setters
 
     public Site() {
     }
@@ -86,7 +88,4 @@ public class Site {
     public void setProcesses(List<Process> processes) {
         this.processes = processes;
     }
-
-
-    // Constructors, getters, and setters
 }

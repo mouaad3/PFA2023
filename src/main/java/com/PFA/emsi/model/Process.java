@@ -17,27 +17,27 @@ public class Process {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "site_id", nullable = false)
-    private Site site;
-
     @OneToOne
     @JoinColumn(name = "process_manager_id", nullable = false)
     private User processManager;
 
-    @OneToOne(mappedBy = "process", cascade = CascadeType.ALL)
-    private Audit audit;
+    @OneToMany
+    private List<Audit> audit;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Site site;
+
 
     public Process() {
     }
 
-    public Process(Long id, String name, String description, Site site, User processManager, Audit audit) {
+    public Process(Long id, String name, String description, User processManager, List<Audit> audit, Site site) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.site = site;
         this.processManager = processManager;
         this.audit = audit;
+        this.site = site;
     }
 
     public Long getId() {
@@ -64,14 +64,6 @@ public class Process {
         this.description = description;
     }
 
-    public Site getSite() {
-        return site;
-    }
-
-    public void setSite(Site site) {
-        this.site = site;
-    }
-
     public User getProcessManager() {
         return processManager;
     }
@@ -80,11 +72,19 @@ public class Process {
         this.processManager = processManager;
     }
 
-    public Audit getAudit() {
+    public List<Audit> getAudit() {
         return audit;
     }
 
-    public void setAudit(Audit audit) {
+    public void setAudit(List<Audit> audit) {
         this.audit = audit;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
 }

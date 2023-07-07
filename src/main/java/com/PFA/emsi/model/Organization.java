@@ -19,7 +19,7 @@ public class Organization {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Site> sites;
 
     @OneToOne

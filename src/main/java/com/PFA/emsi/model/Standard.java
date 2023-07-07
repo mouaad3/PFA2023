@@ -17,21 +17,17 @@ public class Standard {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "standard", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Clause> clauses;
-
-    @OneToMany(mappedBy = "standard")
-    private List<Audit> audits;
 
     public Standard() {
     }
 
-    public Standard(Long id, String name, String description, List<Clause> clauses, List<Audit> audits) {
+    public Standard(Long id, String name, String description, List<Clause> clauses) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.clauses = clauses;
-        this.audits = audits;
     }
 
     public Long getId() {
@@ -65,15 +61,5 @@ public class Standard {
     public void setClauses(List<Clause> clauses) {
         this.clauses = clauses;
     }
-
-    public List<Audit> getAudits() {
-        return audits;
-    }
-
-    public void setAudits(List<Audit> audits) {
-        this.audits = audits;
-    }
-
-    // Constructors, getters, and setters
 }
 

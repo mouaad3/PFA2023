@@ -1,4 +1,4 @@
-package com.PFA.emsi.service;
+package com.PFA.emsi.service.AuditResult;
 
 import com.PFA.emsi.model.AuditResult;
 import com.PFA.emsi.repository.AuditResultRepository;

@@ -1,5 +1,7 @@
 package com.PFA.emsi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -26,11 +28,13 @@ public class Action {
             joinColumns = @JoinColumn(name = "action_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @JsonManagedReference
     private List<User> users;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "audit_id", nullable = false)
     private Audit audit;
+
 
     public Action() {
     }
@@ -44,6 +48,13 @@ public class Action {
         this.audit = audit;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -84,16 +95,6 @@ public class Action {
     public void setAudit(Audit audit) {
         this.audit = audit;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    // Constructors, getters, and setters
 }
 
 

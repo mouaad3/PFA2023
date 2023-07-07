@@ -48,5 +48,10 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public boolean isEmailUnique(String email) {
+        User existingUser = userRepository.findByEmail(email);
+        return existingUser == null;
+    }
 }
 

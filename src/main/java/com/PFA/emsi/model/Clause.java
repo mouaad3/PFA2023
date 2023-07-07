@@ -15,22 +15,21 @@ public class Clause {
     @Column(name = "requirements", nullable = false)
     private String requirements;
 
-    @ManyToOne
-    @JoinColumn(name = "standard_id", nullable = false)
-    private Standard standard;
+    @Column(name = "standardId", nullable = true)
+    private Long standardId;
 
-    @OneToOne(mappedBy = "clause", cascade = CascadeType.ALL)
-    private ClauseResult clauseResult;
+    @Column(name = "clauseResultId", nullable = true)
+    private Long clauseResultId;
 
     public Clause() {
     }
 
-    public Clause(Long id, String name, String requirements, Standard standard, ClauseResult clauseResult) {
+    public Clause(Long id, String name, String requirements, Long standardId, Long clauseResultId) {
         this.id = id;
         this.name = name;
         this.requirements = requirements;
-        this.standard = standard;
-        this.clauseResult = clauseResult;
+        this.standardId = standardId;
+        this.clauseResultId = clauseResultId;
     }
 
     public Long getId() {
@@ -57,22 +56,20 @@ public class Clause {
         this.requirements = requirements;
     }
 
-    public Standard getStandard() {
-        return standard;
+    public Long getStandardId() {
+        return standardId;
     }
 
-    public void setStandard(Standard standard) {
-        this.standard = standard;
+    public void setStandardId(Long standardId) {
+        this.standardId = standardId;
     }
 
-    public ClauseResult getClauseResult() {
-        return clauseResult;
+    public Long getClauseResultId() {
+        return clauseResultId;
     }
 
-    public void setClauseResult(ClauseResult clauseResult) {
-        this.clauseResult = clauseResult;
+    public void setClauseResultId(Long clauseResultId) {
+        this.clauseResultId = clauseResultId;
     }
-
-    // Constructors, getters, and setters
 }
 

@@ -2,6 +2,9 @@ package com.PFA.emsi.model;
 
 import jakarta.persistence.*;
 
+
+
+
 @Entity
 @Table(name = "File")
 public class File {
@@ -16,7 +19,7 @@ public class File {
     @Column(name = "content", nullable = false)
     private byte[] content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "proof_id", nullable = false)
     private Proof proof;
 

@@ -11,7 +11,7 @@ public class AuditResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = true)
     private String description;
 
     @OneToOne
@@ -21,9 +21,6 @@ public class AuditResult {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private ClauseResult clauseResults;
-
-    // Constructors, getters, and setters
-
 
     public AuditResult() {
     }
@@ -66,5 +63,8 @@ public class AuditResult {
     public void setClauseResults(ClauseResult clauseResults) {
         this.clauseResults = clauseResults;
     }
+
+    // Constructors, getters, and setters
+
 }
 

@@ -12,38 +12,21 @@ public class ClauseResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "clause_id", nullable = false)
-    private Clause clause;
-
-
-    @OneToOne(mappedBy = "clauseResult")
-    private Proof proof;
-
-
-    @OneToMany
-    @JoinColumn(name = "audit_result_id")
-    private List<AuditResult> auditResult;
+    @Column(name = "clauseId")
+    private Long clauseId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "state", nullable = false)
+    @Column(name = "state", nullable = true)
     private ClauseState state;
-
-    @OneToMany(mappedBy = "clauseResult", cascade = CascadeType.ALL)
-    private List<Action> actions;
-
 
     // Constructors, getters, and setters
     public ClauseResult() {
     }
 
-    public ClauseResult(Long id, Clause clause, Proof proof, List<AuditResult> auditResult, ClauseState state, List<Action> actions) {
+    public ClauseResult(Long id, Long clauseId, ClauseState state) {
         this.id = id;
-        this.clause = clause;
-        this.proof = proof;
-        this.auditResult = auditResult;
+        this.clauseId = clauseId;
         this.state = state;
-        this.actions = actions;
     }
 
     public Long getId() {
@@ -54,28 +37,12 @@ public class ClauseResult {
         this.id = id;
     }
 
-    public Clause getClause() {
-        return clause;
+    public Long getClauseId() {
+        return clauseId;
     }
 
-    public void setClause(Clause clause) {
-        this.clause = clause;
-    }
-
-    public Proof getProof() {
-        return proof;
-    }
-
-    public void setProof(Proof proof) {
-        this.proof = proof;
-    }
-
-    public List<AuditResult> getAuditResult() {
-        return auditResult;
-    }
-
-    public void setAuditResult(List<AuditResult> auditResult) {
-        this.auditResult = auditResult;
+    public void setClauseId(Long clauseId) {
+        this.clauseId = clauseId;
     }
 
     public ClauseState getState() {
@@ -84,13 +51,5 @@ public class ClauseResult {
 
     public void setState(ClauseState state) {
         this.state = state;
-    }
-
-    public List<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<Action> actions) {
-        this.actions = actions;
     }
 }

@@ -16,7 +16,8 @@ public class Proof {
 
     @Column(name = "description", nullable = false)
     private String description;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "clause_result_id", nullable = false)
     private ClauseResult clauseResult;
 

@@ -15,7 +15,7 @@ public class Audit {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Column(name = "start_time", nullable = false)
@@ -24,25 +24,13 @@ public class Audit {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
-    @ManyToOne
-    @JoinTable(
-            name = "user_audit",
-            joinColumns = @JoinColumn(name = "audit_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private User auditors;
-
-    @OneToOne
-    @JoinColumn(name = "process_id", nullable = false)
-    private Process process;
-
-    @OneToOne(mappedBy = "audit", cascade = CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL)
     private AuditResult auditResult;
 
     @OneToMany(mappedBy = "audit", cascade = CascadeType.ALL)
     private List<Action> actions;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "standard_id")
     private Standard standard;
 
@@ -50,14 +38,12 @@ public class Audit {
     public Audit() {
     }
 
-    public Audit(Long id, String name, String description, LocalDateTime startTime, LocalDateTime endTime, User auditors, Process process, AuditResult auditResult, List<Action> actions, Standard standard) {
+    public Audit(Long id, String name, String description, LocalDateTime startTime, LocalDateTime endTime, AuditResult auditResult, List<Action> actions, Standard standard) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.auditors = auditors;
-        this.process = process;
         this.auditResult = auditResult;
         this.actions = actions;
         this.standard = standard;
@@ -101,22 +87,6 @@ public class Audit {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
-    }
-
-    public User getAuditors() {
-        return auditors;
-    }
-
-    public void setAuditors(User auditors) {
-        this.auditors = auditors;
-    }
-
-    public Process getProcess() {
-        return process;
-    }
-
-    public void setProcess(Process process) {
-        this.process = process;
     }
 
     public AuditResult getAuditResult() {

@@ -1,8 +1,9 @@
 package com.PFA.emsi.controller;
 
 
+import com.PFA.emsi.Request.ActionRequest;
 import com.PFA.emsi.model.Action;
-import com.PFA.emsi.service.ActionService;
+import com.PFA.emsi.service.action.ActionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +13,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
-@RequestMapping("/actions")
+@RequestMapping("/action")
 public class ActionController {
 
-    private final ActionService actionService;
+    private final ActionServiceImpl actionService;
 
     @Autowired
-    public ActionController(ActionService actionService) {
+    public ActionController(ActionServiceImpl actionService) {
         this.actionService = actionService;
     }
 
@@ -38,10 +39,10 @@ public class ActionController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Action> createAction(@RequestBody Action action) {
-        Action createdAction = actionService.createAction(action);
-        return new ResponseEntity<>(createdAction, HttpStatus.CREATED);
+    @PostMapping("/createAction")
+    public ResponseEntity<Action> createAction(@RequestBody ActionRequest actionRequest) {
+        Action action = actionService.createAction(actionRequest);
+        return ResponseEntity.ok(action);
     }
 
     @PutMapping("/{id}")

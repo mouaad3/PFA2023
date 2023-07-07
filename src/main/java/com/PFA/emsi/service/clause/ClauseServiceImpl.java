@@ -1,4 +1,4 @@
-package com.PFA.emsi.service;
+package com.PFA.emsi.service.clause;
 
 import com.PFA.emsi.model.Clause;
 import com.PFA.emsi.repository.ClauseRepository;
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClauseService {
+public class ClauseServiceImpl implements ClauseService {
 
     private final ClauseRepository clauseRepository;
 
     @Autowired
-    public ClauseService(ClauseRepository clauseRepository) {
+    public ClauseServiceImpl(ClauseRepository clauseRepository) {
         this.clauseRepository = clauseRepository;
     }
 

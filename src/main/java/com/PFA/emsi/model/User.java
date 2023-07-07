@@ -1,6 +1,7 @@
 package com.PFA.emsi.model;
 
 import com.PFA.emsi.Enum.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -27,40 +28,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Trace> traces;
-
-    @OneToOne
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
-
-    @OneToOne(mappedBy = "processManager")
-    private Process process;
-
-    @OneToMany(mappedBy = "auditors", cascade = CascadeType.ALL)
-    private List<Audit> audit;
-
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Action> actions;
-
     // Constructors, getters, and setters
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, Role role, List<Trace> traces, Organization organization, Process process, List<Audit> audit, List<Action> actions) {
+
+    public User(Long id, String firstName, String lastName, String email, String password, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.traces = traces;
-        this.organization = organization;
-        this.process = process;
-        this.audit = audit;
-        this.actions = actions;
     }
 
     public Long getId() {
@@ -109,45 +89,5 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public List<Trace> getTraces() {
-        return traces;
-    }
-
-    public void setTraces(List<Trace> traces) {
-        this.traces = traces;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
-    public Process getProcess() {
-        return process;
-    }
-
-    public void setProcess(Process process) {
-        this.process = process;
-    }
-
-    public List<Audit> getAudit() {
-        return audit;
-    }
-
-    public void setAudit(List<Audit> audit) {
-        this.audit = audit;
-    }
-
-    public List<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<Action> actions) {
-        this.actions = actions;
     }
 }

@@ -1,7 +1,8 @@
 package com.PFA.emsi.controller;
 
+import com.PFA.emsi.Request.ClauseRequest;
 import com.PFA.emsi.model.Clause;
-import com.PFA.emsi.service.ClauseService;
+import com.PFA.emsi.service.clause.ClauseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,23 +13,23 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:3000")
 
-@RequestMapping("/clauses")
+@RequestMapping("/clause")
 public class ClauseController {
 
-    private final ClauseService clauseService;
+    private final ClauseServiceImpl clauseService;
 
     @Autowired
-    public ClauseController(ClauseService clauseService) {
+    public ClauseController(ClauseServiceImpl clauseService) {
         this.clauseService = clauseService;
     }
 
-    @GetMapping
+    @GetMapping("/getAllClauses")
     public ResponseEntity<List<Clause>> getAllClauses() {
         List<Clause> clauses = clauseService.getAllClauses();
         return new ResponseEntity<>(clauses, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getClauseById/{id}")
     public ResponseEntity<Clause> getClauseById(@PathVariable("id") Long id) {
         Clause clause = clauseService.getClauseById(id);
         if (clause != null) {
@@ -38,10 +39,16 @@ public class ClauseController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Clause> createClause(@RequestBody Clause clause) {
-        Clause createdClause = clauseService.createClause(clause);
-        return new ResponseEntity<>(createdClause, HttpStatus.CREATED);
+    @PostMapping("/createClause")
+    public ResponseEntity<Clause> createClause(@RequestBody ClauseRequest clauseRequest) {
+        Clause clause = new Clause();
+        clause.setName(clauseRequest.getName());
+        clause.setRequirements(clauseRequest.getRequirements());
+        clause.setStandardId(clauseRequest.getStandardId());
+        clause.setClauseResultId(clauseRequest.getClauseResultId());
+
+        Clause savedClause = clauseService.createClause(clause);
+        return ResponseEntity.ok(savedClause);
     }
 
     @PutMapping("/{id}")
@@ -57,7 +64,7 @@ public class ClauseController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteClause/{id}")
     public ResponseEntity<Void> deleteClause(@PathVariable("id") Long id) {
         boolean deleted = clauseService.deleteClause(id);
         if (deleted) {

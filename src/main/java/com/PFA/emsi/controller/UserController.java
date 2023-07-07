@@ -4,7 +4,6 @@ import com.PFA.emsi.model.User;
 import com.PFA.emsi.service.user.UserService;
 import com.PFA.emsi.service.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-
 @RequestMapping("/user")
 public class UserController {
 
@@ -39,15 +37,18 @@ public class UserController {
         }
     }
 
-    @PostMapping("/addUser")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    @PostMapping("/signup")
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        //User createdUser = userService.createUser(user);
+        //return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        if (!userService.isEmailUnique(user.getEmail())) {
+            return ResponseEntity.badRequest().body("Email already exists");
+        }
+        userService.createUser(user);
+        return ResponseEntity.ok("User created successfully");
     }
 
-    @PutMapping("/updateUserBy/{id}")
+    @PatchMapping("/updateUserBy/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         User user = userService.getUserById(id);
         if (user != null) {
